@@ -1,0 +1,51 @@
+{% extends 'app_subway/base.html' %}
+
+{% block title %}{{ sucursal.nombre }} - Detalles{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>{{ sucursal.nombre }}</h1>
+    <div>
+        <a href="{% url 'app_subway:editar_sucursal' sucursal.id_sucursal %}" class="btn btn-warning">Editar</a>
+        <a href="{% url 'app_subway:borrar_sucursal' sucursal.id_sucursal %}" class="btn btn-danger">Borrar</a>
+        <a href="{% url 'app_subway:listar_sucursales' %}" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Información de la Sucursal</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Dirección:</strong> {{ sucursal.direccion }}</p>
+                <p><strong>Ciudad:</strong> {{ sucursal.ciudad }}</p>
+                <p><strong>Teléfono:</strong> {{ sucursal.telefono }}</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>Empleados ({{ empleados_sucursal.count }})</h5>
+                <a href="{% url 'app_subway:crear_empleado' %}" class="btn btn-success btn-sm">Agregar Empleado</a>
+            </div>
+            <div class="card-body">
+                {% for empleado in empleados_sucursal %}
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
+                    <div>
+                        <strong>{{ empleado.nombre }}</strong><br>
+                        <small>{{ empleado.puesto }} - ${{ empleado.salario }}</small>
+                    </div>
+                    <a href="{% url 'app_subway:detalle_empleado' empleado.id_empleado %}" class="btn btn-info btn-sm">Ver</a>
+                </div>
+                {% empty %}
+                <p class="text-muted">No hay empleados en esta sucursal.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

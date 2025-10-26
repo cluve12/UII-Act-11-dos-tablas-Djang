@@ -1,0 +1,27 @@
+{% extends 'app_subway/base.html' %}
+
+{% block title %}Confirmar Borrado{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h2>Confirmar Borrado</h2>
+            </div>
+            <div class="card-body">
+                <p>¿Estás seguro de que deseas borrar la sucursal <strong>"{{ sucursal.nombre }}"</strong>?</p>
+                <p class="text-danger">Esta acción no se puede deshacer y se borrarán todos los empleados asociados.</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'app_subway:detalle_sucursal' sucursal.id_sucursal %}" class="btn btn-secondary me-md-2">Cancelar</a>
+                        <button type="submit" class="btn btn-danger">Confirmar Borrado</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
